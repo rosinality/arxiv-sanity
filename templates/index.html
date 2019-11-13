@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+
+    <title>arXiv Sanity</title>
+</head>
+
+<body>
+    <div id="main">
+        <div id="mark">
+            {% if mark == 'all' %}
+            All
+            {% else %}
+            <a href="/">All</a>
+            {% endif %}
+            /
+            {% if mark == 'read' %}
+            Read
+            {% else %}
+            <a href="/read">Read</a>
+            {% endif %}
+            /
+            {% if mark == 'later' %}
+            Read Later
+            {% else %}
+            <a href="/later">Read Later</a>
+            {% endif %}
+            /
+            {% if mark == 'none' %}
+            None
+            {% else %}
+            <a href="/none">None</a>
+            {% endif %}
+        </div>
+        <div id="search">
+            <form method="get" action="/{{ mark }}">
+                <input id="search-input" type="text" name="search">
+            </form>
+
+            {% if searched %}
+            <div id="notification">
+                Found {{ n_paper }} papers. <a href="/{{ mark }}">Show all</a>
+            </div>
+            {% endif %}
+        </div>
+        <ul>
+            {% for paper in papers %}
+            <li>
+                <div class="paper" data-id="{{ paper.id }}">
+                    <div class="title"><a href="https://arxiv.org/abs/{{ paper.id }}">{{ paper.title|safe }}</a></div>
+                    <div class="authors">{{ paper.authors }}</div>
+                    <div class="meta">
+                        {% if paper.version == 1 and paper.new == 1 %}
+                        🔆
+                        {% endif %}
+                        {{ paper.updated }}
+                        {% if paper.version > 1 %}
+                        (v{{ paper.version }}: {{ paper.published }})
+                        {% endif %}
+                        {{ paper.category }}
+                        <a href="https://arxiv.org/pdf/{{ paper.id }}">PDF</a>
+                    </div>
+                    <div class="meta">
+                        Mark as
+
+                        <span class="radio-read">
+                            {% if paper.state == 'none' or paper.state == 'later' %}
+                            <a class="mark-read">Read</a>
+                            {% else %}
+                            Read
+                            {% endif %}
+                        </span>
+                        /
+                        <span class="radio-later">
+                            {% if paper.state == 'none' or paper.state == 'read' %}
+                            <a class="mark-later">Read Later</a>
+                            {% else %}
+                            Read Later
+                            {% endif %}
+                        </span>
+                        /
+                        <span class="radio-none">
+                            {% if paper.state == 'read' or paper.state == 'later' %}
+                            <a class="mark-none">None</a>
+                            {% else %}
+                            None
+                            {% endif %}
+                        </span>
+                    </div>
+                    <!--<a class="summary-toggle">Summary &raquo;</a>-->
+                    <div class="summary-short">
+                        <span class="summary-text">{{ paper.summary_short }}</span>
+                        <span class="summary-full">{{ paper.summary }}</span>
+                        <a class="summary-more">More &raquo;</a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div id="pagination">
+            <a href="/{{ mark }}/{{ prev_page }}{{ search_query }}">
+                &laquo;
+            </a>
+
+            {% for page in pagination %}
+            {% if page == '...' %}
+            &hellip;
+            {% else %}
+            {% if page == current_page %}
+            {{ page }}
+            {% else %}
+            <a href="/{{ mark }}/{{ page }}{{ search_query }}">
+                {{ page }}
+            </a>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+            <a href="/{{ mark }}/{{ next_page }}{{ search_query }}">
+                &raquo;
+            </a>
+        </div>
+    </div>
+
+    <script src="/static/main.js"></script>
+</body>
+
+</html>

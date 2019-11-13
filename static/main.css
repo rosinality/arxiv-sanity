@@ -1,0 +1,93 @@
+body {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    background-color: rgb(27, 41, 54);
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: rgb(29, 161, 243);
+    text-decoration: none;
+}
+
+
+#main {
+    margin: auto;
+    width: 1000px;
+}
+
+#pagination {
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+}
+
+#mark {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.paper .summary-short {
+    padding-top: 8px;
+    font-size: 18px;
+    color: rgb(136, 152, 167); /*#586e75;*/
+}
+
+/* .paper .summary-full {
+    display: none;
+} */
+
+#search {
+    padding-top: 20px;
+    text-align: center;
+}
+
+#search-input {
+    width: 800px;
+    font-size: 24px;
+    padding: 6px;
+    padding-left: 50px;
+    background-color: rgb(27, 41, 54);
+    border: none;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    background: url(search.png) no-repeat scroll 3px 3px;
+    font-family: Georgia, Times, Times New Roman, serif;
+}
+
+.paper {
+    padding: 20px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.found {
+    background-color: rgb(255, 255, 102);
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    display: inline-block;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#notification {
+    padding: 10px;
+}
+
+.paper a {
+    cursor: pointer;
+}
+
+.paper .title {
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.paper .meta {
+    color: #586e75; /*rgb(136, 152, 167);*/
+}
